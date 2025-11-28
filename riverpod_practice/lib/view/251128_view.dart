@@ -10,21 +10,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  int basePrice = 8000;
-  bool extraShrimp = false;
-  bool extraCheese = false;
-  int quantity = 1;
-
-  int get totalPrice {
-    int topping = 0;
-    if (extraShrimp) {
-      topping += 3000;
-    }
-    if (extraCheese) {
-      topping += 2000;
-    }
-    return (basePrice + topping) * quantity;
-  }
 
   @override
   Widget build(BuildContext context) {
