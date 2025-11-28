@@ -17,26 +17,31 @@ class CartViewModel extends Notifier<CartPageState> {
     return CartPageState(cart: Cart(0));
   }
 
+  void cartTotal(
+    int topping,
+    bool extraShrimp,
+    bool extraCheese,
+    int basePrice,
+    int quantity,
+  ) {
+    int totalPrice() {
+      int topping = 0;
 
-  void cartTotal(int topping, bool extraShrimp, bool extraCheese, int basePrice,
-  int quantity) {
-    int get totalPrice {
-    int topping = 0;
-    if (extraShrimp) {
-      topping += 3000;
+      if (extraShrimp) {
+        topping += 3000;
+      }
+
+      if (extraCheese) {
+        topping += 2000;
+      }
+
+      return (basePrice + topping) * quantity;
     }
-    if (extraCheese) {
-      topping += 2000;
-    }
-    return (basePrice + topping) * quantity;
-  }
-    state = state.copyWith(
-      cart: state.cart.copyWith(),
-    );
+
+    state = state.copyWith(cart: state.cart.copyWith());
   }
 }
 
-final cartViewProvider =
-    NotifierProvider<CartViewModel, CartPageState>(
-      () => CartViewModel(),
-    );
+final cartViewProvider = NotifierProvider<CartViewModel, CartPageState>(
+  () => CartViewModel(),
+);
