@@ -14,23 +14,30 @@ class AlarmPageState {
 class AlarmViewModel extends Notifier<AlarmPageState> {
   @override
   AlarmPageState build() {
-    return AlarmPageState(alarms: [
-      Alarm('7:00', 'AM', 'Alarm', false),
-      Alarm('8:30', 'AM', 'Alarm', false),
-      Alarm('8:00', 'PM', 'Alarm', false),
-      ]);
+    return AlarmPageState(
+      alarms: [
+        Alarm('7:00', 'AM', 'Alarm', false),
+        Alarm('8:30', 'AM', 'Alarm', false),
+        Alarm('8:00', 'PM', 'Alarm', false),
+      ],
+    );
   }
 
-  void alarmdaata(int index, bool isOn) {
-    var currentValue = state.alarm.time;
-    var newisOn = currentValue;
-    if (isOn) {
-      Alarm.isOn = true;
+  void alarmdata(int index, bool isOn) {
+    var alarm = state.alarms[index];
+
+    if (isOn == true) {
+      alarm.isOn = true;
+    } else {
+      alarm.isOn = false;
     }
-    state = state.copyWith(alarm: state.alarm.copyWith(isOn: newisOn));
+
+    state = state.copyWith(alarm: state.alarms[index].copyWith(isOn: isOn));
+
+   
   }
 }
 
-final calculatorViewProvider = NotifierProvider<AlarmViewModel, AlarmPageState>(
+final AlarmViewProvider = NotifierProvider<AlarmViewModel, AlarmPageState>(
   () => AlarmViewModel(),
 );

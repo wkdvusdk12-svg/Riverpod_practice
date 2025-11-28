@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_practice/view/251126_view.dart';
 import 'package:riverpod_practice/view/251127_view.dart';
 
 void main() {
-  runApp(ProviderScope(child: const MyApp()));
+  runApp(ProviderScope(child: AlarmApp()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AlarmApp extends StatefulWidget {
+  const AlarmApp({super.key});
 
   @override
+  State<AlarmApp> createState() => _AlarmAppState();
+}
+
+class _AlarmAppState extends State<AlarmApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: const AlarmRiverpodView());
+    return MaterialApp(
+      home: AlarmPage(),
+    );
   }
 }
