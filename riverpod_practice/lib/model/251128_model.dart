@@ -1,22 +1,27 @@
-class Cart {
-  int basePrice = 8000;
-  bool extraShrimp = false;
-  bool extraCheese = false;
-  int quantity = 1;
+class CartState {
+  final bool extraShrimp;
+  final bool extraCheese;
+  final int quantity;
 
-  Cart(this.basePrice, this.extraShrimp, this.extraCheese, this.quantity);
+  CartState({
+    this.extraShrimp = false,
+    this.extraCheese = false,
+    this.quantity = 1,
+  });
 
-  Cart copyWith({
-    int? basePrice,
-    bool? extraShrimp,
-    bool? extraCheese,
-    int? quantity,
-  }) {
-    return Cart(
-      this.basePrice,
-      this.extraShrimp,
-      this.extraCheese,
-      this.quantity,
+  CartState copyWith({bool? extraShrimp, bool? extraCheese, int? quantity}) {
+    return CartState(
+      extraShrimp: extraShrimp ?? this.extraShrimp,
+      extraCheese: extraCheese ?? this.extraCheese,
+      quantity: quantity ?? this.quantity,
     );
+  }
+
+  int get totalPrice {
+    int basePrice = 8000;
+    int topping = 0;
+    if (extraShrimp) topping += 3000;
+    if (extraCheese) topping += 2000;
+    return (basePrice + topping) * quantity;
   }
 }
