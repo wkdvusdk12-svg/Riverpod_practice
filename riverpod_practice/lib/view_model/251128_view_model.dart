@@ -1,47 +1,32 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_practice/model/251128_model.dart';
 
-class CartPageState {
-  final Cart cart;
-
-  CartPageState({required this.cart});
-
-  CartPageState copyWith({Cart? cart}) {
-    return CartPageState(cart: cart ?? this.cart);
-  }
-}
-
-class CartViewModel extends Notifier<CartPageState> {
+class CartViewModel extends Notifier<CartState> {
+  
   @override
-  CartPageState build() {
-    return CartPageState(cart: Cart(0));
+  CartState build() {
+    return CartState();
   }
 
-  void cartTotal(
-    int topping,
-    bool extraShrimp,
-    bool extraCheese,
-    int basePrice,
-    int quantity,
-  ) {
-    int totalPrice() {
-      int topping = 0;
+  void toggleShrimp() {
+    state = state.copyWith(extraShrimp: !state.extraShrimp);
+  }
 
-      if (extraShrimp) {
-        topping += 3000;
-      }
+  void toggleCheese() {
+    state = state.copyWith(extraCheese: !state.extraCheese);
+  }
 
-      if (extraCheese) {
-        topping += 2000;
-      }
+  void incrementQuantity() {
+    state = state.copyWith(quantity: state.quantity + 1);
+  }
 
-      return (basePrice + topping) * quantity;
+  void decrementQuantity() {
+    if (state.quantity > 1) {
+      state = state.copyWith(quantity: state.quantity - 1);
     }
-
-    state = state.copyWith(cart: state.cart.copyWith());
   }
 }
 
-final cartViewProvider = NotifierProvider<CartViewModel, CartPageState>(
-  () => CartViewModel(),
-);
+final cartProvider = NotifierProvider<CartViewModel, CartState>(() {
+  return CartViewModel();
+});
